@@ -15,6 +15,9 @@
     <script src="RectangleDrawComponent.js"></script>
     <script src="RectangleUpdateComponent.js"></script>
     <script src="RectangleGameObject.js"></script>
+    <script src="PlayerDrawComponent.js"></script>
+    <script src="PlayerGameObject.js"></script>
+    <script src="PlayerUpdateComponent.js"></script>
 
     <script>
         "use strict"
@@ -38,15 +41,8 @@
 
         let gameObjects = []
 
-        // let startX = 100;
-        // let startY = 400;
-        // let offsetX = 50;
-        // let width = 10;
-        // let height = 50;
-        // let max = 30;
-        // let maxWidth = 400;
 
-        //Define the model
+        //funny diving board
         for (let i = 0; i < max; i++) {
 
             let percent = i / max;
@@ -57,13 +53,14 @@
             let y = startY - 50 - h / 2;
             let w = width + i * 10;
 
-            let r = 255;
+            let r = 200;
             let g = percent * 255;
             let b = 0;
 
             gameObjects.push(new RectangleGameObject(x, y, w, h, r, g, b, percent))
         }
-
+        gameObjects.push(new PlayerGameObject());
+        
         function tick() {
             update()
             draw()
