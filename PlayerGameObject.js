@@ -1,16 +1,14 @@
 
 class PlayerGameObject extends GameObject {
-   constructor () {
-    super();
-    this.components.push(new PlayerUpdateComponent(this));
-    this.components.push(new PlayerDrawComponent(this));
-    this.playerX = 0;
-    this.playerY = 0;
-    this.playerWidth = 100;
-    this.playerHeight = 100;
-    this.r = 255;
-    this.g = 255;
-    this.b = 255;
+   constructor() {
+      super();
+      this.components.push(new PlayerUpdateComponent(this));
+      this.components.push(new PlayerDrawComponent(this));
    }
-   
+   update() {
+      this.components.filter(c => c.update).forEach(c => c.update());
+   }
+   draw() {
+      this.components.filter(c => c.draw).forEach(c => c.draw(ctx));
+   }
 }

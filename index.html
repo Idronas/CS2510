@@ -15,32 +15,18 @@
     <script src="RectangleDrawComponent.js"></script>
     <script src="RectangleUpdateComponent.js"></script>
     <script src="RectangleGameObject.js"></script>
-    <script src="PlayerDrawComponent.js"></script>
     <script src="PlayerGameObject.js"></script>
+    <script src="PlayerDrawComponent.js"></script>
     <script src="PlayerUpdateComponent.js"></script>
 
     <script>
         "use strict"
 
-        let mouseIsDown = false;
-        document.addEventListener("mousedown", mouseDown);
-        document.addEventListener("mouseup", mouseUp);
-
-
-        function mouseDown() {
-            mouseIsDown = true;
-        }
-
-        function mouseUp() {
-            mouseIsDown = false;
-        }
-
-
-
         let { canvas, ctx } = getCanvas();
-
-        let gameObjects = []
-
+        let verticalInput = 0;
+        let horizontalInput = 0;
+        let thisFramesInput= [];
+        let gameObjects = [];
 
         //funny diving board
         for (let i = 0; i < max; i++) {
@@ -61,25 +47,55 @@
         }
         gameObjects.push(new PlayerGameObject());
         
+        let mouseIsDown = false;
+        document.addEventListener("mousedown", mouseDown);
+        document.addEventListener("mouseup", mouseUp);
+        document.addEventListener("keydown", keyDown);
+
+        function keyDown(event) {
+            thisFramesInput.push(event);
+            for (let object of gameObjects)
+                for (let component of object.components)
+                    if (component.keyDown) {
+                        component.keyDown(event);
+                    }
+        }
+
+        function mouseDown() {
+            mouseIsDown = true;
+        }
+
+        function mouseUp() {
+            mouseIsDown = false;
+        }
+
+        function processInput(input) {
+            for (let i of input) {
+                console.log(i);
+            }
+        }
+
         function tick() {
             update()
             draw()
             Time.timePassed += Time.secondsBetweenFrame;
         }
-
+        //put the input stuff together and make it move per frame
         function update() {
+            processInput(thisFramesInput);
             for (let rectangle of gameObjects) {
 
                 rectangle.update();
             }
+            thisFramesInput.length = 0;
         }
 
         function draw() {
 
             ctx.fillStyle = "black"
             ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            for (let rectangle of gameObjects) {
-                rectangle.draw(ctx);
+            for (let object of gameObjects) {
+                object.draw(ctx);
             }
         }
 
