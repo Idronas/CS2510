@@ -1,5 +1,6 @@
 import PrefabRectangle from "../engine/PrefabRectangle.js";
 import Scene from "../engine/Scene.js"
+import PlayerUpdate from "./PlayerUpdate.js";
 
 class DungeonScene extends Scene {
    constructor() {
@@ -7,13 +8,14 @@ class DungeonScene extends Scene {
    }
 
    start() {
-      let player = new PrefabRectangle(0, 0, 10, 10);
+      let player = new PrefabRectangle("player", 0, 0, 10, 10);
       player.components.push(new PlayerUpdate(player));
       player.layer = 0;      
       this.gameObjects.push(player);
 
-      
 
    }
 
 }
+
+export default DungeonScene;

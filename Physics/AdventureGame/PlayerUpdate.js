@@ -1,4 +1,5 @@
 import Component from "../engine/Component.js";
+import Game from "../engine/Game.js";
 import Input from "../engine/Input.js";
 
 class PlayerUpdate extends Component {
@@ -7,11 +8,16 @@ class PlayerUpdate extends Component {
       super(parent)
    }
    
-   playerSpeed = 10;
+   playerSpeed = 100;
    diffX = 0;
    diffY = 0;
    
    update() {
+      
+      let player = Game.findByNameOne("player");
+      let playerDraw = player.getComponent("RectangleDraw");
+
+      
       if (Input.getKey("a"))
          this.diffX = -this.playerSpeed;
       if (Input.getKey("d"))
@@ -24,6 +30,11 @@ class PlayerUpdate extends Component {
       this.parent.x = this.diffX;
       this.parent.y = this.diffY;
 
+      console.log(this.parent.x);
+      console.log(this.parent.y);
+
    }
 
 }
+
+export default PlayerUpdate;
