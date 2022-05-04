@@ -68,7 +68,7 @@ class Scene {
     //Now adjust for the camera
     ctx.save();
     let pixelSize = newX/Game.cameraWidth*Game.cameraScale; //How large a unit in the world is in pixels. In a small screen, this is a small number. On a large screen, this is a large number
-    console.log(pixelSize)
+    //console.log(pixelSize)
     // ctx.translate(pixelSize * )
     let ulX = Game.cameraX - (Game.cameraWidth/2)/Game.cameraScale;
     let ulY = Game.cameraY - (Game.cameraWidth/2)/Game.cameraScale;
